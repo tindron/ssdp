@@ -4,6 +4,10 @@ require 'thread'
 require 'time'
 require 'uri'
 
+require 'ssdp/notification'
+require 'ssdp/response'
+require 'ssdp/search'
+
 # Simple Service Discovery Protocol for the UPnP Device Architecture.
 #
 # Currently SSDP only handles the discovery portions of SSDP.
@@ -270,11 +274,11 @@ class SSDP
   def parse(response)
     case response
     when /\ANOTIFY/ then
-      Notification.parse response
+      SSDP::Notification.parse response
     when /\AHTTP/ then
-      Response.parse response
+      SSDP::Response.parse response
     when /\AM-SEARCH/ then
-      Search.parse response
+      SSDP::Search.parse response
     else
       raise Error, "Unknown response #{response[/\A.*$/]}"
     end

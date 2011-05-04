@@ -1,6 +1,7 @@
 require 'ssdp/advertisement'
 
 class SSDP
+  
   # Holds information about a NOTIFY message.  For an alive notification, all
   # fields will be present.  For a byebye notification, location, max_age and
   # server will be nil.
