@@ -9,14 +9,18 @@ rescue Bundler::BundlerError => e
 end
 require 'rake'
 
+$:.unshift Dir.pwd + "/lib"
+require 'ssdp'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "ssdp"
+  gem.version = SSDP::VERSION
   gem.homepage = "http://github.com/turboladen/ssdp"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Simple Service Discovery Protocol wrapper}
+  gem.description = %Q{Simple Service Discovery Protocol wrapper, generally used by UPnP, and extracted
+    from seattle.rb's UPnP library.}
   gem.email = "steve.loveless@gmail.com"
   gem.authors = ["turboladen"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
