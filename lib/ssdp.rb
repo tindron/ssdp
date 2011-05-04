@@ -245,7 +245,9 @@ class SSDP
     @log.send level, message
   end
 
-  # Sets up a UDPSocket for multicast send and receive
+  # Sets up a UDPSocket for multicast send and receive.
+  #
+  # @return [UDPSocket]
   def new_socket
     membership = IPAddr.new(@broadcast).hton + IPAddr.new('0.0.0.0').hton
     ttl = [@ttl].pack 'i'
@@ -263,6 +265,8 @@ class SSDP
   end
 
   # Returns a Notification, Response or Search created from +response+.
+  #
+  # @param [Notification,Response,Search] response
   def parse(response)
     case response
     when /\ANOTIFY/ then
