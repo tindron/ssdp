@@ -388,7 +388,7 @@ USN: #{name}\r
     @socket.send http_notify, 0, @broadcast, @port
   end
 
-  # Builds and sends a response to an M-SEARCH request"
+  # Builds and sends a response to an M-SEARCH request.
   def send_response(uri, type, name, device)
     server_info = "Ruby SSDP/#{SSDP::VERSION}"
     device_info = "#{device.root_device.class}/#{device.root_device.version}"
@@ -411,18 +411,22 @@ Content-Length: 0\r
     @socket.send http_response, 0, @broadcast, @port
   end
 
-  # Builds and sends an M-SEARCH request looking for +search_target+.
-  def send_search(search_target)
+  # Builds and sends an M-SEARCH request looking for +service_type+.
+  #
+  # @param [String] service_type The URI of type of service to look for, given
+  #   as a String.
+  def send_search(service_type)
+    @socket ||= new_socket
     search = <<-HTTP_REQUEST
 M-SEARCH * HTTP/1.1\r
 HOST: #{@broadcast}:#{@port}\r
 MAN: "ssdp:discover"\r
 MX: #{@timeout}\r
-ST: #{search_target}\r
+ST: #{service_type}\r
 \r
     HTTP_REQUEST
 
-    log :debug, "SSDP sent M-SEARCH #{search_target}"
+    log :debug, "SSDP sent M-SEARCH #{service_type}"
 
     @socket.send search, 0, @broadcast, @port
   end
