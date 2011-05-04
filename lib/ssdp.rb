@@ -366,24 +366,27 @@ USN: #{name}\r
   end
 
   # Builds and sends a byebye NOTIFY message.
-  def send_notify_byebye(type, obj)
-    if type =~ /^uuid:/ then
+  #
+  # @param [String] service_type
+  # @param [?] obj
+  def send_notify_byebye(service_type, obj)
+    if service_type =~ /^uuid:/ then
       name = obj.name
     else
       # HACK maybe this should be .device?
-      name = "#{obj.root_device.name}::#{type}"
+      name = "#{obj.root_device.name}::#{service_type}"
     end
 
     http_notify = <<-HTTP_NOTIFY
 NOTIFY * HTTP/1.1\r
 HOST: #{@broadcast}:#{@port}\r
-NT: #{type}\r
+NT: #{service_type}\r
 NTS: ssdp:byebye\r
 USN: #{name}\r
 \r
     HTTP_NOTIFY
 
-    log :debug, "SSDP sent byebye #{type}"
+    log :debug, "SSDP sent byebye #{service_type}"
 
     @socket.send http_notify, 0, @broadcast, @port
   end
