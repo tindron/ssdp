@@ -75,7 +75,9 @@ class SSDP
 
   # Creates a new SSDP object.  Use the accessors to override broadcast, port,
   # timeout or ttl.
-  def initialize
+  #
+  # @param [Fixnum] ttl Use a different TTL than the default value of 4.
+  def initialize(ttl=TTL)
     @broadcast = BROADCAST
     @port = PORT
     @timeout = TIMEOUT
@@ -91,8 +93,6 @@ class SSDP
   end
 
   # Listens for M-SEARCH requests and advertises the requested services.
-  #
-  #
   def advertise(root_device, port, hosts)
     @socket ||= new_socket
 
