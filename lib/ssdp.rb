@@ -243,6 +243,7 @@ class SSDP
     end
   end
 
+  # TODO: Re-implement logging.
   def log(level, message)
     return unless @log
 
