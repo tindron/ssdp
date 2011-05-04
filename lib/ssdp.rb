@@ -389,7 +389,12 @@ USN: #{name}\r
   end
 
   # Builds and sends a response to an M-SEARCH request.
-  def send_response(uri, type, name, device)
+  #
+  # @param [String] location
+  # @param [String] service_type
+  # @param [String] service_name AKA the USN.
+  # @param [?] device
+  def send_response(location, service_type, service_name, device)
     server_info = "Ruby SSDP/#{SSDP::VERSION}"
     device_info = "#{device.root_device.class}/#{device.root_device.version}"
 
@@ -397,16 +402,16 @@ USN: #{name}\r
 HTTP/1.1 200 OK\r
 CACHE-CONTROL: max-age=120\r
 EXT:\r
-LOCATION: #{uri}\r
+LOCATION: #{location}\r
 SERVER: #{server_info} UPnP/1.0 #{device_info}\r
-ST: #{type}\r
+ST: #{service_type}\r
 NTS: ssdp:alive\r
-USN: #{name}\r
+USN: #{service_name}\r
 Content-Length: 0\r
 \r
     HTTP_RESPONSE
 
-    log :debug, "SSDP sent M-SEARCH OK #{type}"
+    log :debug, "SSDP sent M-SEARCH OK #{service_type}"
 
     @socket.send http_response, 0, @broadcast, @port
   end
