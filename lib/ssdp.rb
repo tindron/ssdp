@@ -335,7 +335,7 @@ class SSDP
     @socket = nil
   end
 
-  # Builds and sends a NOTIFY message
+  # Builds and sends a NOTIFY message.
   def send_notify(uri, type, obj)
     if type =~ /^uuid:/ then
       name = obj.name
@@ -364,7 +364,7 @@ USN: #{name}\r
     @socket.send http_notify, 0, @broadcast, @port
   end
 
-  # Builds and sends a byebye NOTIFY message
+  # Builds and sends a byebye NOTIFY message.
   def send_notify_byebye(type, obj)
     if type =~ /^uuid:/ then
       name = obj.name
