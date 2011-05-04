@@ -61,10 +61,5 @@ class SSDP
       @name = name
       @ext = ext
     end
-
-    # A friendlier inspect
-    def inspect
-      "#<#{self.class}:0x#{object_id.to_s 16} #{target} #{location}>"
-    end
   end
 end

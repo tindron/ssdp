@@ -87,11 +87,5 @@ class SSDP
     def byebye?
       sub_type == 'ssdp:byebye'
     end
-
-    # A friendlier inspect
-    def inspect
-      location = " #{@location}" if @location
-      "#<#{self.class}:0x#{object_id.to_s 16} #{@type} #{@sub_type}#{location}>"
-    end
   end
 end

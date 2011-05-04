@@ -33,10 +33,5 @@ class SSDP
     def expiration
       date + wait_time
     end
-
-    # A friendlier inspect
-    def inspect
-      "#<#{self.class}:0x#{object_id.to_s 16} #{target}>"
-    end
   end
 end
