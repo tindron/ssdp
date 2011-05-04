@@ -1,5 +1,5 @@
 require 'ipaddr'
-require 'socket'
+require_relative 'core_ext/socket_patch'
 require 'thread'
 require 'time'
 require 'uri'
