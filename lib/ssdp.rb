@@ -43,34 +43,34 @@ class SSDP
   TTL = 4
 
   # Broadcast address to use when sending searches and listening for
-  # notifications
+  # notifications.
   attr_accessor :broadcast
 
   # Listener accessor for tests.
-  attr_accessor :listener # :nodoc:
+  attr_accessor :listener
 
-  # A WEBrick::Log logger for unified logging
+  # A WEBrick::Log logger for unified logging.
   attr_writer :log
 
-  # Thread that periodically notifies for advertise
-  attr_reader :notify_thread # :nodoc:
+  # Thread that periodically notifies for advertise.
+  attr_reader :notify_thread
 
-  # Port to use for SSDP searching and listening
+  # Port to use for SSDP searching and listening.
   attr_accessor :port
 
-  # Queue accessor for tests
-  attr_accessor :queue # :nodoc:
+  # Queue accessor for tests.
+  attr_accessor :queue
 
-  # Thread that handles search requests for advertise
-  attr_reader :search_thread # :nodoc:
+  # Thread that handles search requests for advertise.
+  attr_reader :search_thread
 
-  # Socket accessor for tests
-  attr_accessor :socket # :nodoc:
+  # Socket accessor for tests.
+  attr_accessor :socket
 
-  # Time to wait for SSDP responses
+  # Time to wait for SSDP responses.
   attr_accessor :timeout
 
-  # TTL for SSDP packets
+  # TTL for SSDP packets.
   attr_accessor :ttl
 
   # Creates a new SSDP object.  Use the accessors to override broadcast, port,
@@ -90,7 +90,9 @@ class SSDP
     @notify_thread = nil
   end
 
-  # Listens for M-SEARCH requests and advertises the requested services
+  # Listens for M-SEARCH requests and advertises the requested services.
+  #
+  #
   def advertise(root_device, port, hosts)
     @socket ||= new_socket
 
