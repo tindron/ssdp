@@ -85,7 +85,7 @@ class SSDP
     @broadcast = BROADCAST
     @port = PORT
     @timeout = TIMEOUT
-    @ttl = TTL
+    @ttl = ttl
 
     @log = nil
 
