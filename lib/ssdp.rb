@@ -29,6 +29,8 @@ require 'ssdp/search'
 # Based on code by Kazuhiro NISHIYAMA (zn@mbf.nifty.com)
 class SSDP
   VERSION = '0.1.0'
+  DEVICE_SCHEMA_PREFIX = 'urn:schemas-upnp-org:device'
+  SERVICE_SCHEMA_PREFIX = 'urn:schemas-upnp-org:service'
 
   # SSDP Error class
   class Error < StandardError
@@ -188,6 +190,8 @@ class SSDP
   # If given a block, yields each Notification as it is received and never
   # returns.  Otherwise, discover waits for timeout seconds and returns all
   # notifications received in that time.
+  #
+  # @yield [SSDP::Notification]
   def discover
     @socket ||= new_socket
 
@@ -271,7 +275,8 @@ class SSDP
 
   # Returns a Notification, Response or Search created from +response+.
   #
-  # @param [Notification,Response,Search] response
+  # @param [String] response
+  # @return [SSDP::Notification, SSDP::Response, SSDP::Search]
   def parse(response)
     case response
     when /\ANOTIFY/ then
@@ -311,11 +316,9 @@ class SSDP
         if target == :root then
           send_search 'upnp:rootdevice'
         elsif Array === target and target.first == :device then
-          # TODO: DEVICE_SCHEMA_PREFIX = 'urn:schemas-upnp-org:device'
           target = [DEVICE_SCHEMA_PREFIX, target.last]
           send_search target.join(':')
         elsif Array === target and target.first == :service then
-          # TODO: SERVICE_SCHEMA_PREFIX = 'urn:schemas-upnp-org:service'
           target = [SERVICE_SCHEMA_PREFIX, target.last]
           send_search target.join(':')
         elsif String === target and target =~ /\A(urn|uuid|ssdp):/ then
